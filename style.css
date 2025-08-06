@@ -9,7 +9,7 @@ body, html {
 .hero {
   position: relative;
   height: 100vh;
-  background: url('https://source.unsplash.com/1600x900/?football,stadium') center/cover no-repeat;
+  background: url('https://media.istockphoto.com/id/1435167377/es/foto/campo-del-estadio-de-fútbol-fondo-de-fútbol.jpg?s=612x612&w=0&k=20&c=qO7ZiP_LXZvfhtiVMuigp1mHEqi_29Y2g7oNS9FaoPg=') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;

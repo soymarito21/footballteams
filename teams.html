@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Equipos - Football Teams Creator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      display: grid;
+      gap: 10px;
+    }
+    input, select, button {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #1db954;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1ed760;
+    }
+    .team-list {
+      margin-top: 30px;
+    }
+    .team-card {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    .player {
+      font-size: 0.9rem;
+      margin-left: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Crear un equipo</h2>
+    <form id="teamForm">
+      <input type="text" id="teamName" placeholder="Nombre del equipo" required>
+      <h3>Añadir jugador</h3>
+      <input type="text" id="playerName" placeholder="Nombre del jugador" required>
+      <input type="text" id="position" placeholder="Posición (Portero, Defensa...)" required>
+      <input type="text" id="nationality" placeholder="Nacionalidad" required>
+      <input type="number" id="rating" placeholder="Valoración (0-100)" min="0" max="100" required>
+      <button type="submit">Agregar al equipo</button>
+    </form>
+
+    <div class="team-list" id="teamList"></div>
+  </div>
+
+  <script>
+    const teamForm = document.getElementById('teamForm');
+    const teamList = document.getElementById('teamList');
+    let teams = {};
+
+    teamForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const teamName = document.getElementById('teamName').value.trim();
+      const playerName = document.getElementById('playerName').value.trim();
+      const position = document.getElementById('position').value.trim();
+      const nationality = document.getElementById('nationality').value.trim();
+      const rating = document.getElementById('rating').value;
+
+      if (!teams[teamName]) {
+        teams[teamName] = [];
+      }
+
+      teams[teamName].push({ playerName, position, nationality, rating });
+      renderTeams();
+      teamForm.reset();
+    });
+
+    function renderTeams() {
+      teamList.innerHTML = '';
+      for (let team in teams) {
+        let teamCard = document.createElement('div');
+        teamCard.classList.add('team-card');
+        teamCard.innerHTML = `<h4>${team}</h4>`;
+        teams[team].forEach(player => {
+          let playerDiv = document.createElement('div');
+          playerDiv.classList.add('player');
+          playerDiv.textContent = `${player.playerName} - ${player.position} - ${player.nationality} - ${player.rating}`;
+          teamCard.appendChild(playerDiv);
+        });
+        teamList.appendChild(teamCard);
+      }
+    }
+  </script>
+</body>
+</html>
